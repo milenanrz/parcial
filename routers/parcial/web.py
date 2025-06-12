@@ -47,7 +47,7 @@ async def add_user_process(
     )
 
 
-    usuario = await crud.create_user(session, user_data)
+    usuario = await crud.create_users(session, user_data)
 
     session.add(usuario)
     return RedirectResponse("/web/all_users", status_code=303)

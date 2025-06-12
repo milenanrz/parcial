@@ -8,10 +8,10 @@ from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 #PostgreSQL (Producción - Supabase)
-#DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 #SQLITE (Desarrollo)
-DATABASE_URL= "sqlite+aiosqlite:///database.db"
+#DATABASE_URL= "sqlite+aiosqlite:///database.db"
 
 engine : AsyncEngine = create_async_engine(DATABASE_URL, echo=True)
 async_session =sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
