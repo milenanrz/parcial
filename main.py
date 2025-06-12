@@ -3,6 +3,7 @@ from typing import List
 from pygments.lexer import default
 from models import Usuarios, Mascota
 from sqlalchemy.ext.asyncio import AsyncSession
+from fuck import *
 
 app = FastAPI()
 

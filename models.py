@@ -1,5 +1,4 @@
 from typing import Optional, List
-
 from pydantic import ConfigDict
 from pydantic.v1 import BaseModel
 from sqlmodel import SQLModel, Relationship, Field, create_engine
