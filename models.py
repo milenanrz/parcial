@@ -1,8 +1,10 @@
+from typing import Optional, List
+
+from pydantic import ConfigDict
 from sqlmodel import SQLModel, Relationship, Field, create_engine
 from uuid import uuid4
 
 class Usuarios(SQLModel, table = True):
-    id:int = Field(primary_key=True, default=None)
     nombre_usuario:str = Field(index=True)
     email:str = Field(unique =True)
     telefono:int = Field(default=None, index=True)
@@ -15,7 +17,8 @@ class Mascota(SQLModel, table=True):
 
     id_usuario: int| None = Field(default=None, foreign_key="usuarios.id")
 
-sqlite_file_name = "database.db"
-sqllite_url = f"sqlite:///{sqlite_file_name}"
-
-engine = create_engine(sqllite_url, echo = True)
+class Usuario_SQL(Usuarios):
+    __tablename__ = "Usuarios"
+    id: Optional[int] = Field(primary_key=True, default=None)
+    model_config = ConfigDict(from_attributes=True)
+    user: List[Mascota] = Relationship(back_populates="Usuario")

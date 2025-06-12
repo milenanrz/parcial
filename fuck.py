@@ -1,4 +1,5 @@
 from models import Usuarios
+from typing import Optional
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
