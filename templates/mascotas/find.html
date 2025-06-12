@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Mascotas {% endblock %}
+{% block content %}
+
+{% if mascotas %}
+    {% for pet in mascotas %}
+        <ul>
+            <li>Nombre: {{% pet.nombre_mascota %}}</li>
+            <li>Raza: {{% pet.raza %}}</li>
+        </ul>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

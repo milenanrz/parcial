@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Registrar usuario {% endblock %}
+{% block content %}
+
+
+<form method="post" enctype="multipart/form-data" action="/web/new_user">
+    <input type="text" name="nombre_usuario" id="nombre_usuario">
+    <label>Nombre del usuario</label>
+
+    <input type="email" name="email" id="email">
+    <label>Email</label>
+
+    <input type="number" name="telefono" id="telefono">
+    <label>Teléfono</label>
+
+
+    <input type="hidden" name="mascota" value="0">
+    <input type="checkbox" name="mascota" id="mascota" value="1">
+    <label>¿Tiene mascota?</label>
+
+
+    <button type="submit">Registrar</button>
+
+</form>
+
+{% endblock %}

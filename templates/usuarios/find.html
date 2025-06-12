@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Usuarios {% endblock %}
+{% block content %}
+
+{% if usuarios %}
+    {% for user in usuarios %}
+        <ul>
+            <li>Nombre: {{% user.nombre_usuario %}}</li>
+            <li>Email: {{% user.email %}}</li>
+            <li>Teléfono: {{% user.telefono %}}</li>
+            <li>Mascota: {{% "Si tiene" if user.mascota else "No tiene" %}}</li>
+        </ul>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
