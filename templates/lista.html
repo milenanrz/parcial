@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Usuarios</title>
+</head>
+<body>
+  <h2>Usuario Registrado</h2>
+  <ul>
+    {% for datos in datos %}
+      <li>
+        <a href="/usuario/{{ usuarios.id }}">{{ usuarios.nombre }}</a> de {{ usuarios.autor }} ({{ usuarios.año }})
+        <form method="post" action="/eliminar/{{ usuarios.id }}" style="display:inline;">
+          <button type="submit">Eliminar</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="/">Volver al inicio</a>
+</body>
+</html>
