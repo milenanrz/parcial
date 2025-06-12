@@ -6,9 +6,8 @@ from fastapi.templating import Jinja2Templates
 
 from sqlmodel import Session, select
 
-from models import Usuarios, Mascotas
+from models import Usuarios, Mascota
 from db_connection import get_session
-from supabase_connection import upload_img_supabase
 import fuck as crud
 
 router = APIRouter()
