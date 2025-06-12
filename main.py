@@ -18,9 +18,3 @@ Users =[]
 async def read_Users():
     return Users
 
-@app.post("/create_user")
-async  def create_user(usuario: Usuarios, session: AsyncSession)->Usuarios:
-    session.add(usuario)
-    await session.commit()
-    await session.refresh(usuario)
-    return usuario

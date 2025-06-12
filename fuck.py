@@ -1,11 +1,10 @@
 from itertools import product
 
 from fastapi import FastAPI, APIRouter
-
+from sqlalchemy.ext.asyncio import AsyncSession
 from models import Usuarios
 from typing import Optional
 from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
 app = FastAPI()
 
 user_router= APIRouter()
