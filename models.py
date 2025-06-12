@@ -1,16 +1,21 @@
-from sqlalchemy import Column, Integer, String, Boolean, column
-from sqlalchemy.orm import relationship
-from database import Base
+from sqlmodel import SQLModel, Relationship, Field, create_engine
+from uuid import uuid4
 
-class Usuarios(Base):
-    __tablename__ = "Usuarios"
-    id_usuario = Column(Integer, primary_key=True, index=True)
-    nombre_usuario = Column(String)
-    email = Column(String, unique =True)
-    mascota = Column(Boolean, default= True)
+class Usuarios(SQLModel, table = True):
+    id:int = Field(primary_key=True, default=None)
+    nombre_usuario:str = Field(index=True)
+    email:str = Field(unique =True)
+    telefono:int = Field(default=None, index=True)
+    mascota:str = Field(default= True)
 
-class Mascotas(Base):
-    __tablename__ = "Mascotas"
-    id_mascota = Column(Integer, primary_key=True, index= True)
-    nombre_mascota = Column(String)
-    Raza = Column(String)
+class Mascota(SQLModel, table=True):
+    id_mascota:int = Field(primary_key=True, index= True)
+    nombre_mascota:str = Field(index = True)
+    raza: str = Field(index= True)
+
+    id_usuario: int| None = Field(default=None, foreign_key="usuarios.id")
+
+sqlite_file_name = "database.db"
+sqllite_url = f"sqlite:///{sqlite_file_name}"
+
+engine = create_engine(sqllite_url, echo = True)
