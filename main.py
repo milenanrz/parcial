@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from typing import List
 from pygments.lexer import default
-from models import Usuarios
+from models import Usuarios, Mascota
 from sqlalchemy.ext.asyncio import AsyncSession
 
 app = FastAPI()
@@ -17,10 +17,9 @@ Users =[]
 async def read_Users():
     return Users
 
-@app.post("/create_user", response_model=List[Usuarios])
-async  def create_user(session: AsyncSession, datos: dict):
-    nuevo_usuario = Usuarios(**datos)
-    session.add(nuevo_usuario)
+@app.post("/create_user")
+async  def create_user(usuario: Usuarios, session: AsyncSession)->Usuarios:
+    session.add(usuario)
     await session.commit()
-    await session.refresh(nuevo_usuario)
-    return nuevo_usuario
+    await session.refresh(usuario)
+    return usuario

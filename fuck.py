@@ -12,7 +12,7 @@ user_router= APIRouter()
 product_router = APIRouter()
 
 
-async  def create_user(session: AsyncSession, datos: dict):
+async def create_user(session: AsyncSession, datos: dict):
     nuevo_usuario = Usuarios(**datos)
     session.add(nuevo_usuario)
     await session.commit()
