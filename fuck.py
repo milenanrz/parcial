@@ -1,7 +1,16 @@
+from itertools import product
+
+from fastapi import FastAPI, APIRouter
+
 from models import Usuarios
 from typing import Optional
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
+app = FastAPI()
+
+user_router= APIRouter()
+product_router = APIRouter()
+
 
 async  def create_user(session: AsyncSession, datos: dict):
     nuevo_usuario = Usuarios(**datos)
