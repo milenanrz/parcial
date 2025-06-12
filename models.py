@@ -1,26 +1,28 @@
 from typing import Optional, List
-
 from pydantic import ConfigDict
-from pydantic.v1 import BaseModel
-from sqlmodel import SQLModel, Relationship, Field, create_engine
-from uuid import uuid4
+from sqlmodel import Field, SQLModel, Relationship
 
-class Usuarios(SQLModel, table = True):
-    id_user:Optional[int] = Field(default=None, primary_key=True)
-    nombre_usuario:Optional[str] = Field(index=True)
-    email:Optional[str] = Field(unique =True)
-    telefono:Optional[int] = Field(default=None, index=True)
-    mascota:Optional[bool] = Field(default= True)
 
-class Mascota(SQLModel, table=True):
-    id_mascota:Optional[int] = Field(primary_key=True, index= True)
-    nombre_mascota:Optional[str] = Field(index = True)
-    raza: Optional[str] = Field(index= True)
+class UsuariosBase(SQLModel):
+    nombre_usuario: Optional[str] = Field(min_length=3, max_length=50)
+    email: Optional[str] = Field(unique=True)
+    telefono: Optional[int] = Field(default=None, index=True)
+    mascota: Optional[bool] = Field(default=True)
 
-    id_usuario: Optional[int]| None = Field(default=None, foreign_key="usuarios.id")
+class MascotaBase(SQLModel):
+    nombre_mascota: Optional[str] = Field(min_length=1, max_length=20)
+    raza: Optional[str] = Field(min_length=1, max_length=20)
 
-class Usuario_SQL(Usuarios):
-    __tablename__ = "Usuarios"
-    id: Optional[int] = Field(primary_key=True, default=None)
+class MascotaSQL(MascotaBase, table=True):
+    __tablename__ = "mascotas"
+    id: Optional[int] = Field(default=None, primary_key=True)
     model_config = ConfigDict(from_attributes=True)
-    user: List[Mascota] = Relationship(back_populates="Usuarios")
+
+    usuario: Optional["UsuarioSQL"] = Relationship(back_populates="mascota")
+
+class UsuarioSQL(UsuariosBase, table=True):
+    __tablename__ = "usuarios"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    model_config = ConfigDict(from_attributes=True)
+
+    mascota: List[MascotaSQL] = Relationship(back_populates="usuario")

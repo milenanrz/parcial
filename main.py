@@ -19,7 +19,7 @@ app = FastAPI(
     version="1.0",
     lifespan=lifespan)
 
-app.mount("/images", StaticFiles(directory="images"), name="images")
+#app.mount("/images", StaticFiles(directory="images"), name="images")
 
 templates = Jinja2Templates(directory="templates")
 

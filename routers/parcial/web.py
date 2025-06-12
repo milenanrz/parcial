@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 
 from sqlmodel import Session, select
 
-from models import Usuarios, Mascota
+from models import UsuarioSQL
 from db_connection import get_session
 import fuck as crud
 
@@ -21,7 +21,7 @@ async def home(request: Request):
 
 
 @router.get("/all_users", response_class=HTMLResponse)
-async def get_users(request: Request, session: Session):
+async def get_users(request: Request, session: Session = Depends(get_session)):
     usuarios = await crud.all_users(session)
     return templates.TemplateResponse("usuarios/find.html", {"request": request, "usuarios": usuarios})
 
@@ -39,7 +39,7 @@ async def add_user_process(
         mascota:Optional[bool] = Form(default=False),
         session: Session = Depends(get_session)
 ):
-    user_data = Usuarios (
+    user_data = UsuarioSQL (
         nombre_usuario = nombre_usuario,
         email = email,
         telefono = telefono,
@@ -68,7 +68,7 @@ async def modify_user_process(
         mascota:Optional[bool] = Form(default=False),
         session: Session = Depends(get_session)
 ):
-    user_data = Usuarios(
+    user_data = UsuarioSQL(
         nombre_usuario=nombre_usuario,
         email=email,
         telefono=telefono,
@@ -96,7 +96,7 @@ async def remove_user(request: Request,
 
 
 
-@router.get("/all_pets", response_class=HTMLResponse)
+"""@router.get("/all_pets", response_class=HTMLResponse)
 async def get_pets(request: Request, session: Session):
     usuarios = await crud.all_pets(session)
     return templates.TemplateResponse("mascotas/find.html", {"request": request, "usuarios": usuarios})
@@ -122,7 +122,7 @@ async def add_pet_process(
     mascota = await crud.create_pet(session, pet_data)
 
     session.add(mascota)
-    return RedirectResponse("/web/all_pets", status_code=303)
+    return RedirectResponse("/web/all_pets", status_code=303)"""
 
 
 

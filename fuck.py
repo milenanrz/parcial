@@ -2,7 +2,7 @@ from itertools import product
 
 from fastapi import FastAPI, APIRouter
 
-from models import Usuarios
+from models import UsuarioSQL
 from typing import Optional
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,21 +13,21 @@ product_router = APIRouter()
 
 
 async  def create_user(session: AsyncSession, datos: dict):
-    nuevo_usuario = Usuarios(**datos)
+    nuevo_usuario = UsuarioSQL(**datos)
     session.add(nuevo_usuario)
     await session.commit()
     await session.refresh(nuevo_usuario)
     return nuevo_usuario
 
 async def all_users(session: AsyncSession):
-    result = await session.execute(select(Usuarios). where(Usuarios, Mascota = True))
+    result = await session.execute(select(UsuarioSQL). where(UsuarioSQL, Mascota = True))
     return result.scalars(). all()
 
 async def obtener_por_id(session: AsyncSession, id: int):
-    return await session. get(Usuarios, id)
+    return await session. get(UsuarioSQL, id)
 
 async def find_name(session: AsyncSession, nombre: dict):
-    resultado = await session.execute(select((Usuarios). where(Usuarios.nombre_usuario.ilike(f"%{nombre}"))))
+    resultado = await session.execute(select((UsuarioSQL). where(UsuarioSQL.nombre_usuario.ilike(f"%{nombre}"))))
     return resultado.scalars().all()
 
 async def update_user(session: AsyncSession, id: int, datos: dict):
